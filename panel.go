@@ -361,6 +361,18 @@ type Target struct {
 	Datasource string `json:"datasource,omitempty"`
 	Hide       bool   `json:"hide,omitempty"`
 
+	// For opentsdb
+	Aggregator           string            `json:"aggregator,omitempty"`
+	CurrentTagKey        string            `json:"currentTagKey,omitempty"`
+	CurrentTagValue      string            `json:"currentTagValue,omitempty"`
+	DownsampleAggregator string            `json:"downsampleAggregator,omitempty"`
+	DownsampleFillPolicy string            `json:"downsampleFillPolicy,omitempty"`
+	DownsampleInterval   string            `json:"downsampleInterval,omitempty"`
+	IsCounter            bool              `json:"isCounter,omitempty"`
+	ShouldComputeRate    bool              `json:"shouldComputeRate,omitempty"`
+	Metric               string            `json:"metric,omitempty"`
+	Tags                 map[string]string `json:"tags,omitempty"`
+
 	// For PostgreSQL
 	Table        string `json:"table,omitempty"`
 	TimeColumn   string `json:"timeColumn,omitempty"`
