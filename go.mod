@@ -1,4 +1,4 @@
-module github.com/grafana-tools/sdk
+module git.xiaojukeji.com/datasre/grafana-sdk
 
 go 1.13
 

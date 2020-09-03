@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/grafana-tools/sdk"
+	"git.xiaojukeji.com/datasre/grafana-sdk"
 )
 
 func TestCreateDelete(t *testing.T) {

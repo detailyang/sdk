@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/grafana-tools/sdk"
+	"git.xiaojukeji.com/datasre/grafana-sdk"
 )
 
 func TestClient_SearchDashboards(t *testing.T) {
