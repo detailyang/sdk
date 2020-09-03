@@ -218,7 +218,7 @@ func (b *Board) AddRow(title string) *Row {
 	}
 	row := &Row{
 		Title:    title,
-		Collapse: false,
+		Collapse: true,
 		Editable: true,
 		Height:   "250px",
 	}
