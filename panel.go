@@ -144,7 +144,7 @@ type (
 		Heatmap        map[string]string `json:"heatmap,omitempty"`
 		Cards          HeatmapCards      `json:"cards"`
 		Color          HeatmapColor      `json:"color"`
-		DataFormat     string            `json:"dateFormat,omitempty"`
+		DataFormat     string            `json:"dataFormat,omitempty"`
 		XBucketSize    string            `json:"xbucketSize,omitempty"`
 		XBucketNumber  string            `json:"xBucketNumber,omitempty"`
 		YBucketSize    string            `json:"yBucketSize,omitempty"`
