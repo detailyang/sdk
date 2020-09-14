@@ -152,6 +152,7 @@ type (
 		Xaxis          Axis              `json:"xAxis,omitempty"`
 		Yaxis          Axis              `json:"yAxis,omitempty"`
 		HeatmapTooltip HeatmapTooltip    `json:"tooltip"`
+		HeatmapLegend  Legend            `json:"legend,omitempty"`
 		HighlightCards bool              `json:"highlightCards,omitempty"`
 		Targets        []Target          `json:"targets,omitempty"`
 	}
