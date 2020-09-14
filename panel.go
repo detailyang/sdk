@@ -562,7 +562,7 @@ func NewHeatmap(title string) *Panel {
 				Show:   true,
 				Format: "short",
 			},
-			Tooltip: HeatmapTooltip{
+			HeatmapTooltip: HeatmapTooltip{
 				Show:          true,
 				SeriesStat:    false,
 				ShowHistogram: false,
