@@ -29,6 +29,7 @@ const (
 	CustomType panelType = iota
 	DashlistType
 	GraphType
+	HeatmapType
 	TableType
 	TextType
 	PluginlistType
@@ -152,6 +153,7 @@ type (
 		Yaxis          Axis              `json:"yAxis,omitempty"`
 		Tooltip        HeatmapTooltip    `json:"tooltip"`
 		HighlightCards bool              `json:"highlightCards,omitempty"`
+		Targets         []Target         `json:"targets,omitempty"`
 	}
 	GraphPanel struct {
 		AliasColors interface{} `json:"aliasColors"` // XXX
@@ -537,7 +539,7 @@ func NewHeatmap(title string) *Panel {
 	render := "flot"
 	return &Panel{
 		CommonPanel: CommonPanel{
-			OfType:   GraphType,
+			OfType:   HeatmapType,
 			Title:    title,
 			Type:     "heatmap",
 			Renderer: &render,
@@ -546,7 +548,7 @@ func NewHeatmap(title string) *Panel {
 		HeatmapPanel: &HeatmapPanel{
 			Heatmap: make(map[string]string, 16),
 			Color: HeatmapColor{
-				Mode:           "color",
+				Mode:           "spectrum",
 				CardColor:      "#b4ff00",
 				ColorScale:     "linear",
 				Exponent:       0.5,
@@ -690,6 +692,8 @@ func NewCustom(title string) *Panel {
 // ResetTargets delete all targets defined for a panel.
 func (p *Panel) ResetTargets() {
 	switch p.OfType {
+	case HeatmapType:
+		p.HeatmapPanel.Targets = nil
 	case GraphType:
 		p.GraphPanel.Targets = nil
 	case SinglestatType:
@@ -705,6 +709,8 @@ func (p *Panel) ResetTargets() {
 // value already exists.
 func (p *Panel) AddTarget(t *Target) {
 	switch p.OfType {
+	case HeatmapType:
+		p.HeatmapPanel.Targets = append(p.HeatmapPanel.Targets, *t)
 	case GraphType:
 		p.GraphPanel.Targets = append(p.GraphPanel.Targets, *t)
 	case SinglestatType:
@@ -728,6 +734,8 @@ func (p *Panel) SetTarget(t *Target) {
 		(*targets) = append((*targets), *t)
 	}
 	switch p.OfType {
+	case HeatmapType:
+		setTarget(t, &p.HeatmapPanel.Targets)
 	case GraphType:
 		setTarget(t, &p.GraphPanel.Targets)
 	case SinglestatType:
@@ -755,6 +763,8 @@ func (p *Panel) RepeatDatasourcesForEachTarget(dsNames ...string) {
 		}
 	}
 	switch p.OfType {
+	case HeatmapType:
+		repeatDS(dsNames, &p.HeatmapPanel.Targets)
 	case GraphType:
 		repeatDS(dsNames, &p.GraphPanel.Targets)
 	case SinglestatType:
@@ -785,6 +795,8 @@ func (p *Panel) RepeatTargetsForDatasources(dsNames ...string) {
 		}
 	}
 	switch p.OfType {
+	case HeatmapType:
+		repeatTarget(dsNames, &p.HeatmapPanel.Targets)
 	case GraphType:
 		repeatTarget(dsNames, &p.GraphPanel.Targets)
 	case SinglestatType:
@@ -798,6 +810,8 @@ func (p *Panel) RepeatTargetsForDatasources(dsNames ...string) {
 // no targets defined for panel of concrete type.
 func (p *Panel) GetTargets() *[]Target {
 	switch p.OfType {
+	case HeatmapType:
+		return &p.HeatmapPanel.Targets
 	case GraphType:
 		return &p.GraphPanel.Targets
 	case SinglestatType:
@@ -862,6 +876,12 @@ func (p *Panel) UnmarshalJSON(b []byte) (err error) {
 
 func (p *Panel) MarshalJSON() ([]byte, error) {
 	switch p.OfType {
+	case HeatmapType:
+		var outGraph = struct {
+			CommonPanel
+			HeatmapPanel
+		}{p.CommonPanel, *p.HeatmapPanel}
+		return json.Marshal(outGraph)
 	case GraphType:
 		var outGraph = struct {
 			CommonPanel
