@@ -562,6 +562,7 @@ func NewHeatmap(title string) *Panel {
 			Yaxis: Axis{
 				Show:   true,
 				Format: "short",
+				LogBase: 1,
 			},
 			HeatmapTooltip: HeatmapTooltip{
 				Show:          true,
