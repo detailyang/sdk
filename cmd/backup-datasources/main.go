@@ -32,8 +32,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/gosimple/slug"
 	"git.xiaojukeji.com/datasre/grafana-sdk"
+	"github.com/gosimple/slug"
 )
 
 func main() {

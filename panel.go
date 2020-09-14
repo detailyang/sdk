@@ -151,9 +151,9 @@ type (
 		YBucketNumber  string            `json:"yBucketNumber,omitempty"`
 		Xaxis          Axis              `json:"xAxis,omitempty"`
 		Yaxis          Axis              `json:"yAxis,omitempty"`
-		Tooltip        HeatmapTooltip    `json:"tooltip"`
+		HeatmapTooltip HeatmapTooltip    `json:"tooltip"`
 		HighlightCards bool              `json:"highlightCards,omitempty"`
-		Targets         []Target         `json:"targets,omitempty"`
+		Targets        []Target          `json:"targets,omitempty"`
 	}
 	GraphPanel struct {
 		AliasColors interface{} `json:"aliasColors"` // XXX
@@ -182,6 +182,7 @@ type (
 		Thresholds      []Threshold      `json:"thresholds,omitempty"`
 		TimeFrom        *string          `json:"timeFrom,omitempty"`
 		TimeShift       *string          `json:"timeShift,omitempty"`
+		Tooltip         Tooltip          `json:"tooltip"`
 		XAxis           bool             `json:"x-axis,omitempty"`
 		YAxis           bool             `json:"y-axis,omitempty"`
 		YFormats        []string         `json:"y_formats,omitempty"`
