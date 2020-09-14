@@ -182,7 +182,6 @@ type (
 		Thresholds      []Threshold      `json:"thresholds,omitempty"`
 		TimeFrom        *string          `json:"timeFrom,omitempty"`
 		TimeShift       *string          `json:"timeShift,omitempty"`
-		Tooltip         Tooltip          `json:"tooltip"`
 		XAxis           bool             `json:"x-axis,omitempty"`
 		YAxis           bool             `json:"y-axis,omitempty"`
 		YFormats        []string         `json:"y_formats,omitempty"`
@@ -206,7 +205,6 @@ type (
 		// left or right
 		Yaxis string `json:"yaxis,omitempty"`
 	}
-
 	Tooltip struct {
 		Shared       bool   `json:"shared"`
 		ValueType    string `json:"value_type"`
