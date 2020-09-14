@@ -46,6 +46,7 @@ type (
 		// Should be initialized only one type of panels.
 		// OfType field defines which of types below will be used.
 		*GraphPanel
+		*HeatmapPanel
 		*TablePanel
 		*TextPanel
 		*SinglestatPanel
@@ -120,6 +121,37 @@ type (
 		Notifications       []AlertNotification `json:"notifications,omitempty"`
 		Message             string              `json:"message,omitempty"`
 		For                 string              `json:"for,omitempty"`
+	}
+	HeatmapColor struct {
+		Mode           string  `json:"mode,omitempty"`
+		CardColor      string  `json:"card,omitempty"`
+		ColorScale     string  `json:"colorScale,omitempty"`
+		Exponent       float64 `json:"exponent,omitempty"`
+		ColorScheme    string  `json:"colorScheme,omitempty"`
+		FillBackground bool    `json:"fillBackground,omitempty"`
+	}
+	HeatmapCards struct {
+		Padding string `json:"cardPadding,omitempty"`
+		Round   string `json:"cardPadding,omitempty"`
+	}
+	HeatmapTooltip struct {
+		Show          bool `json:"show"`
+		SeriesStat    bool `json:"seriesStat"`
+		ShowHistogram bool `json:"showHistogram"`
+	}
+	HeatmapPanel struct {
+		Heatmap        map[string]string `json:"heatmap,omitempty"`
+		Cards          HeatmapCards      `json:"cards"`
+		Color          HeatmapColor      `json:"color"`
+		DataFormat     string            `json:"dateFormat,omitempty"`
+		XBucketSize    string            `json:"xbucketSize,omitempty"`
+		XBucketNumber  string            `json:"xBucketNumber,omitempty"`
+		YBucketSize    string            `json:"yBucketSize,omitempty"`
+		YBucketNumber  string            `json:"yBucketNumber,omitempty"`
+		Xaxis          Axis              `json:"xAxis,omitempty"`
+		Yaxis          Axis              `json:"yAxis,omitempty"`
+		Tooltip        HeatmapTooltip    `json:"tooltip"`
+		HighlightCards bool              `json:"highlightCards,omitempty"`
 	}
 	GraphPanel struct {
 		AliasColors interface{} `json:"aliasColors"` // XXX
@@ -495,6 +527,47 @@ func NewDashlist(title string) *Panel {
 			Renderer: &render,
 			IsNew:    true},
 		DashlistPanel: &DashlistPanel{}}
+}
+
+// NewHeatmap initializes panel with a heatmap panel.
+func NewHeatmap(title string) *Panel {
+	if title == "" {
+		title = "Panel Title"
+	}
+	render := "flot"
+	return &Panel{
+		CommonPanel: CommonPanel{
+			OfType:   GraphType,
+			Title:    title,
+			Type:     "heatmap",
+			Renderer: &render,
+			Span:     12,
+			IsNew:    true},
+		HeatmapPanel: &HeatmapPanel{
+			Heatmap: make(map[string]string, 16),
+			Color: HeatmapColor{
+				Mode:           "color",
+				CardColor:      "#b4ff00",
+				ColorScale:     "linear",
+				Exponent:       0.5,
+				ColorScheme:    "interpolateSpectral",
+				FillBackground: false,
+			},
+			DataFormat: "timeseries",
+			Xaxis: Axis{
+				Show: true,
+			},
+			Yaxis: Axis{
+				Show:   true,
+				Format: "short",
+			},
+			Tooltip: HeatmapTooltip{
+				Show:          true,
+				SeriesStat:    false,
+				ShowHistogram: false,
+			},
+			HighlightCards: true,
+		}}
 }
 
 // NewGraph initializes panel with a graph panel.

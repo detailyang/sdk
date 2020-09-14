@@ -54,6 +54,14 @@ func (r *Row) AddGraph(data *GraphPanel) {
 	r.Panels = append(r.Panels, *panel)
 }
 
+func (r *Row) AddHeatmap(data *HeatmapPanel) {
+	lastPanelID++
+	panel := NewHeatmap("")
+	panel.ID = lastPanelID
+	panel.HeatmapPanel = data
+	r.Panels = append(r.Panels, *panel)
+}
+
 func (r *Row) AddTable(data *TablePanel) {
 	lastPanelID++
 	panel := NewTable("")
