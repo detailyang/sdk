@@ -166,6 +166,7 @@ type (
 		Fill        int         `json:"fill"`
 		//		Grid        grid        `json:"grid"` obsoleted in 4.1 by xaxis and yaxis
 
+		Interval        string 			 `json:"interval,omitempty"`
 		MaxDataPoints   int              `json:"maxDataPoints,omitempty"`
 		Legend          Legend           `json:"legend,omitempty"`
 		LeftYAxisLabel  *string          `json:"leftYAxisLabel,omitempty"`
